@@ -1,0 +1,45 @@
+name: portofolio_ku
+description: "Ini merupakan project portofolio saya yg berbasis web menggunakan tech flutter & dart."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.10.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.3.1
+  flutter_svg: ^2.0.10
+  get: ^4.6.6
+  flutter_animate: ^4.2.0+1 # Untuk animasi overpowered yang deklaratif
+  google_fonts: ^6.1.0      # Font tipografi minimalis (opsional)
+  web: ^1.1.1
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  change_app_package_name: ^1.5.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+  - assets/images/
+  - assets/certificates/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400 
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500 
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600 
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700 
+        - asset: assets/fonts/Poppins-ExtraBoldItalic.ttf
+          weight: 800

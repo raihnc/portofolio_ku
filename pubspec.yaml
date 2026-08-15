@@ -1,7 +1,7 @@
 name: portofolio_ku
 description: "Ini merupakan project portofolio saya yg berbasis web menggunakan tech flutter & dart."
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.0+1
 
 environment:
   sdk: ^3.10.7

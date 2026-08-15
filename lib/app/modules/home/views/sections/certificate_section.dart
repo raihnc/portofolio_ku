@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:web/web.dart' as web;
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/utils/pdf_opener.dart';
 import '../../../../core/values/app_values.dart';
+import '../../../../data/models/certificate_model.dart';
 import '../widgets/neo_brutalism_card.dart';
 import '../widgets/neo_brutalism_button.dart';
 import '../../controllers/home_controller.dart';
@@ -38,10 +39,7 @@ class CertificateSection extends StatelessWidget {
               fontWeight: FontWeight.w800,
               color: AppTheme.primary,
             ),
-          )
-              .animate()
-              .fadeIn(duration: 600.ms)
-              .slideX(begin: -0.2, end: 0),
+          ).animate().fadeIn(duration: 600.ms).slideX(begin: -0.2, end: 0),
           const SizedBox(height: 32),
           GridView.builder(
             shrinkWrap: true,
@@ -67,71 +65,68 @@ class CertificateSection extends StatelessWidget {
     );
   }
 
-  void _viewCertificate(BuildContext context, certificate) {
+  void _viewCertificate(BuildContext context, CertificateModel certificate) {
     if (kIsWeb && certificate.pdfUrl != null) {
-      _openPdfInNewTab(certificate.pdfUrl!);
+      openPdfInNewTab(certificate.pdfUrl!);
     } else {
       _showFullImage(context, certificate.imageUrl);
     }
   }
 
-  void _openPdfInNewTab(String pdfUrl) {
-    web.window.open(pdfUrl, '_blank');
-  }
-
   void _showFullImage(BuildContext context, String imageUrl) {
     showDialog(
       context: context,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.all(16),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: AppTheme.cardBg,
-                border: Border.all(
-                  color: AppTheme.border,
-                  width: AppValues.borderWidth,
-                ),
-              ),
-              child: InteractiveViewer(
-                panEnabled: true,
-                minScale: 0.5,
-                maxScale: 4.0,
-                child: Image.asset(imageUrl, fit: BoxFit.contain),
-              ),
-            ),
-            Positioned(
-              top: 8,
-              right: 8,
-              child: IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Container(
-                  decoration: BoxDecoration(
-                    color: AppTheme.cardBg,
-                    border: Border.all(
-                      color: AppTheme.border,
-                      width: AppValues.borderWidth,
+      builder: (context) =>
+          Dialog(
+                backgroundColor: Colors.transparent,
+                insetPadding: const EdgeInsets.all(16),
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppTheme.cardBg,
+                        border: Border.all(
+                          color: AppTheme.border,
+                          width: AppValues.borderWidth,
+                        ),
+                      ),
+                      child: InteractiveViewer(
+                        panEnabled: true,
+                        minScale: 0.5,
+                        maxScale: 4.0,
+                        child: Image.asset(imageUrl, fit: BoxFit.contain),
+                      ),
                     ),
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  child: Icon(Icons.close, color: AppTheme.primary),
+                    Positioned(
+                      top: 8,
+                      right: 8,
+                      child: IconButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        icon: Container(
+                          decoration: BoxDecoration(
+                            color: AppTheme.cardBg,
+                            border: Border.all(
+                              color: AppTheme.border,
+                              width: AppValues.borderWidth,
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          child: Icon(Icons.close, color: AppTheme.primary),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ],
-        ),
-      )
-          .animate()
-          .fadeIn(duration: 300.ms)
-          .scale(begin: Offset(0.8, 0.8), end: Offset(1, 1)),
+              )
+              .animate()
+              .fadeIn(duration: 300.ms)
+              .scale(begin: Offset(0.8, 0.8), end: Offset(1, 1)),
     );
   }
 }
 
 class _CertificateCard extends StatefulWidget {
-  final certificate;
+  final CertificateModel certificate;
   final int index;
   final VoidCallback onTap;
 
@@ -153,61 +148,65 @@ class _CertificateCardState extends State<_CertificateCard> {
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
-      child: NeoBrutalismCard(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppTheme.border,
-                    width: AppValues.borderWidth,
-                  ),
+      child:
+          NeoBrutalismCard(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: AppTheme.border,
+                            width: AppValues.borderWidth,
+                          ),
+                        ),
+                        child: Image.asset(
+                          widget.certificate.imageUrl,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      widget.certificate.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.primary,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: NeoBrutalismButton(
+                        text: 'Lihat sertifikat',
+                        onPressed: widget.onTap,
+                        backgroundColor: AppTheme.secondary,
+                      ),
+                    ),
+                  ],
                 ),
-                child: Image.asset(
-                  widget.certificate.imageUrl,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
+              )
+              .animate()
+              .fadeIn(duration: 600.ms, delay: (100 * widget.index).ms)
+              .slideY(
+                begin: 0.3,
+                end: 0,
+                duration: 600.ms,
+                delay: (100 * widget.index).ms,
+              )
+              .then()
+              .animate(target: _isHovered ? 1 : 0)
+              .moveY(
+                begin: 0,
+                end: -8,
+                duration: 200.ms,
+                curve: Curves.easeOut,
               ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              widget.certificate.name,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: AppTheme.primary,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: NeoBrutalismButton(
-                text: 'Lihat sertifikat',
-                onPressed: widget.onTap,
-                backgroundColor: AppTheme.secondary,
-              ),
-            ),
-          ],
-        ),
-      )
-          .animate()
-          .fadeIn(duration: 600.ms, delay: (100 * widget.index).ms)
-          .slideY(begin: 0.3, end: 0, duration: 600.ms, delay: (100 * widget.index).ms)
-          .then()
-          .animate(
-            target: _isHovered ? 1 : 0,
-          )
-          .moveY(
-            begin: 0,
-            end: -8,
-            duration: 200.ms,
-            curve: Curves.easeOut,
-          ),
     );
   }
 }

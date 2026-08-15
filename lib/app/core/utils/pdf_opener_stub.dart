@@ -1,0 +1,1 @@
+void openPdfInNewTab(String pdfUrl) {}

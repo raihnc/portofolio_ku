@@ -70,22 +70,25 @@ class _NeoBrutalismButtonState extends State<NeoBrutalismButton> {
                   ]
                 : null,
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (widget.icon != null) ...[
-                Icon(widget.icon, color: widget.textColor, size: 20),
-                const SizedBox(width: 8),
-              ],
-              Text(
-                widget.text,
-                style: GoogleFonts.spaceMono(
-                  color: widget.textColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (widget.icon != null) ...[
+                  Icon(widget.icon, color: widget.textColor, size: 20),
+                  const SizedBox(width: 8),
+                ],
+                Text(
+                  widget.text,
+                  style: GoogleFonts.spaceMono(
+                    color: widget.textColor,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         )
             .animate(target: _isHovered ? 1 : 0)

@@ -214,45 +214,24 @@ class _ProjectCardState extends State<_ProjectCard> {
                 }).toList(),
               ),
               const SizedBox(height: 12),
-              // Buttons
-              Row(
-                children: [
-                  Expanded(
-                    child: NeoBrutalismButton(
-                      text: 'Lihat Demo',
-                      onPressed: () async {
-                        final uri = Uri.parse(widget.project.demoUrl);
-                        if (await canLaunchUrl(uri)) {
-                          await launchUrl(
-                            uri,
-                            mode: LaunchMode.externalApplication,
-                          );
-                        }
-                      },
-                      backgroundColor: AppTheme.secondary,
-                      textColor: AppTheme.primary,
-                      icon: Icons.download,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: NeoBrutalismButton(
-                      text: 'Lihat Source Code',
-                      onPressed: () async {
-                        final uri = Uri.parse(widget.project.codeUrl);
-                        if (await canLaunchUrl(uri)) {
-                          await launchUrl(
-                            uri,
-                            mode: LaunchMode.externalApplication,
-                          );
-                        }
-                      },
-                      backgroundColor: AppTheme.cardBg,
-                      textColor: AppTheme.textPrimary,
-                      icon: Icons.code,
-                    ),
-                  ),
-                ],
+              // Button
+              SizedBox(
+                width: double.infinity,
+                child: NeoBrutalismButton(
+                  text: 'Lihat Source Code',
+                  onPressed: () async {
+                    final uri = Uri.parse(widget.project.codeUrl);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(
+                        uri,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    }
+                  },
+                  backgroundColor: AppTheme.cardBg,
+                  textColor: AppTheme.textPrimary,
+                  icon: Icons.code,
+                ),
               ),
             ],
           ),
@@ -364,39 +343,21 @@ class _ProjectCardState extends State<_ProjectCard> {
           }).toList(),
         ),
         const SizedBox(height: 12),
-        // Buttons
-        Row(
-          children: [
-            Expanded(
-              child: NeoBrutalismButton(
-                text: 'Lihat Demo',
-                onPressed: () async {
-                  final uri = Uri.parse(widget.project.demoUrl);
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri, mode: LaunchMode.externalApplication);
-                  }
-                },
-                backgroundColor: AppTheme.secondary,
-                textColor: AppTheme.primary,
-                icon: Icons.download,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: NeoBrutalismButton(
-                text: 'Lihat Source Code',
-                onPressed: () async {
-                  final uri = Uri.parse(widget.project.codeUrl);
-                  if (await canLaunchUrl(uri)) {
-                    await launchUrl(uri, mode: LaunchMode.externalApplication);
-                  }
-                },
-                backgroundColor: AppTheme.cardBg,
-                textColor: AppTheme.textPrimary,
-                icon: Icons.code,
-              ),
-            ),
-          ],
+        // Button
+        SizedBox(
+          width: double.infinity,
+          child: NeoBrutalismButton(
+            text: 'Lihat Source Code',
+            onPressed: () async {
+              final uri = Uri.parse(widget.project.codeUrl);
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+              }
+            },
+            backgroundColor: AppTheme.cardBg,
+            textColor: AppTheme.textPrimary,
+            icon: Icons.code,
+          ),
         ),
       ],
     );

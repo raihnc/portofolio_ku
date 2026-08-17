@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/values/app_values.dart';
 
@@ -78,7 +79,7 @@ class _NeoBrutalismButtonState extends State<NeoBrutalismButton> {
               ],
               Text(
                 widget.text,
-                style: TextStyle(
+                style: GoogleFonts.spaceMono(
                   color: widget.textColor,
                   fontWeight: FontWeight.w700,
                   fontSize: 14,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/pdf_opener.dart';
 import '../../../../core/values/app_values.dart';
@@ -22,25 +23,29 @@ class CertificateSection extends StatelessWidget {
         size.width >= AppValues.mobileBreakpoint &&
         size.width < AppValues.tabletBreakpoint;
 
-    int crossAxisCount = isMobile ? 1 : (isTablet ? 2 : 4);
+    int crossAxisCount = isMobile ? 1 : (isTablet ? 2 : 3);
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(
-        isMobile ? AppValues.paddingLarge : AppValues.paddingXLarge * 2,
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? AppValues.paddingLarge : AppValues.paddingXXLarge,
+        vertical: AppValues.paddingLarge,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'SERTIFIKAT',
-            style: TextStyle(
-              fontSize: isMobile ? 28 : 36,
-              fontWeight: FontWeight.w800,
-              color: AppTheme.primary,
+            style: GoogleFonts.ebGaramond(
+              fontSize: isMobile ? 28 : 48,
+              fontWeight: FontWeight.w600,
+              color: AppTheme.textPrimary,
             ),
-          ).animate().fadeIn(duration: 600.ms).slideX(begin: -0.2, end: 0),
-          const SizedBox(height: 32),
+          )
+              .animate()
+              .fadeIn(duration: 600.ms)
+              .slideX(begin: -0.2, end: 0),
+          const SizedBox(height: 24),
           GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -168,24 +173,25 @@ class _CertificateCardState extends State<_CertificateCard> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 12),
                     Text(
                       widget.certificate.name,
-                      style: TextStyle(
-                        fontSize: 18,
+                      style: GoogleFonts.spaceMono(
+                        fontSize: 13,
                         fontWeight: FontWeight.w700,
-                        color: AppTheme.primary,
+                        color: AppTheme.textPrimary,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 12),
                     SizedBox(
                       width: double.infinity,
                       child: NeoBrutalismButton(
-                        text: 'Lihat sertifikat',
+                        text: 'Lihat Sertifikat',
                         onPressed: widget.onTap,
-                        backgroundColor: AppTheme.secondary,
+                        backgroundColor: AppTheme.tertiary,
+                        textColor: Colors.white,
                       ),
                     ),
                   ],
@@ -203,7 +209,7 @@ class _CertificateCardState extends State<_CertificateCard> {
               .animate(target: _isHovered ? 1 : 0)
               .moveY(
                 begin: 0,
-                end: -8,
+                end: -4,
                 duration: 200.ms,
                 curve: Curves.easeOut,
               ),

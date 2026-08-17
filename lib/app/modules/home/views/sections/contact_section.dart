@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/values/app_values.dart';
@@ -27,51 +28,87 @@ class ContactSection extends StatelessWidget {
         size.width >= AppValues.mobileBreakpoint &&
         size.width < AppValues.tabletBreakpoint;
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(
-        isMobile ? AppValues.paddingLarge : AppValues.paddingXLarge * 2,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'HUBUNGI SAYA',
-            style: TextStyle(
-              fontSize: isMobile ? 28 : 36,
-              fontWeight: FontWeight.w800,
-              color: AppTheme.primary,
-            ),
-          )
-              .animate()
-              .fadeIn(duration: 600.ms)
-              .slideX(begin: -0.2, end: 0),
-          const SizedBox(height: 32),
-          NeoBrutalismCard(
-            backgroundColor: const Color(0xFFB6F500),
-            child: isMobile
-                ? _buildMobileLayout()
-                : _buildDesktopLayout(isTablet),
-          )
-              .animate()
-              .fadeIn(duration: 600.ms, delay: 200.ms)
-              .slideY(begin: 0.2, end: 0, duration: 600.ms, delay: 200.ms),
-          const SizedBox(height: 48),
-          Center(
-            child: Text(
-              '© 2026 Portfolio. Dibangun dengan Flutter & Dart',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: AppTheme.textSecondary,
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? AppValues.paddingLarge : AppValues.paddingXXLarge,
+            vertical: AppValues.paddingLarge,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'HUBUNGI SAYA',
+                style: GoogleFonts.ebGaramond(
+                  fontSize: isMobile ? 28 : 48,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.textPrimary,
+                ),
+              )
+                  .animate()
+                  .fadeIn(duration: 600.ms)
+                  .slideX(begin: -0.2, end: 0),
+              const SizedBox(height: 24),
+              NeoBrutalismCard(
+                backgroundColor: AppTheme.tertiary,
+                child: isMobile
+                    ? _buildMobileLayout()
+                    : _buildDesktopLayout(isTablet),
+              )
+                  .animate()
+                  .fadeIn(duration: 600.ms, delay: 200.ms)
+                  .slideY(begin: 0.2, end: 0, duration: 600.ms, delay: 200.ms),
+            ],
+          ),
+        ),
+        // Dark footer
+        Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            color: AppTheme.inverseSurface,
+            border: Border(
+              top: BorderSide(
+                color: AppTheme.border,
+                width: AppValues.borderWidth,
               ),
             ),
-          )
-              .animate()
-              .fadeIn(duration: 600.ms, delay: 400.ms)
-              .slideY(begin: 0.2, end: 0),
-        ],
-      ),
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? AppValues.paddingLarge : AppValues.paddingXXLarge,
+            vertical: AppValues.paddingXLarge,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                controller.aboutMe['name']!,
+                style: GoogleFonts.ebGaramond(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  color: AppTheme.inverseOnSurface,
+                ),
+              )
+                  .animate()
+                  .fadeIn(duration: 400.ms, delay: 400.ms),
+              const SizedBox(height: 8),
+              Text(
+                'Dibangun dengan Flutter & Dart',
+                style: GoogleFonts.spaceMono(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: AppTheme.inverseOnSurface.withOpacity(0.6),
+                ),
+              )
+                  .animate()
+                  .fadeIn(duration: 400.ms, delay: 500.ms),
+            ],
+          ),
+        )
+            .animate()
+            .fadeIn(duration: 400.ms, delay: 600.ms),
+      ],
     );
   }
 
@@ -92,7 +129,7 @@ class ContactSection extends StatelessWidget {
       children: [
         Expanded(child: _buildContactInfo()),
         SizedBox(width: isTablet ? 32 : 48),
-        SizedBox(width: isTablet ? 200 : 250, child: _buildSocialButtons()),
+        SizedBox(width: isTablet ? 200 : 280, child: _buildSocialButtons()),
       ],
     );
   }
@@ -103,19 +140,19 @@ class ContactSection extends StatelessWidget {
       children: [
         Text(
           'Mari Berkolaborasi!',
-          style: TextStyle(
+          style: GoogleFonts.ebGaramond(
             fontSize: 24,
-            fontWeight: FontWeight.w700,
-            color: AppTheme.primary,
+            fontWeight: FontWeight.w600,
+            color: AppTheme.inverseOnSurface,
           ),
         )
             .animate()
             .fadeIn(duration: 400.ms, delay: 300.ms)
             .slideX(begin: -0.2, end: 0),
         const SizedBox(height: 16),
-        _buildContactItem(Icons.email, controller.contactInfo['email']!, 0),
+        _buildContactItem(Icons.email_outlined, controller.contactInfo['email']!, 0),
         const SizedBox(height: 12),
-        _buildContactItem(Icons.phone, controller.contactInfo['phone']!, 1),
+        _buildContactItem(Icons.phone_outlined, controller.contactInfo['phone']!, 1),
       ],
     );
   }
@@ -127,18 +164,18 @@ class ContactSection extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: AppTheme.cardBg,
-            border: Border.all(color: AppTheme.border, width: 2),
+            border: Border.all(color: AppTheme.border, width: AppValues.borderWidth),
           ),
-          child: Icon(icon, size: 20, color: AppTheme.primary),
+          child: Icon(icon, size: 18, color: AppTheme.primary),
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: AppTheme.primary,
+            style: GoogleFonts.spaceMono(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: AppTheme.inverseOnSurface,
             ),
           ),
         ),
@@ -158,6 +195,7 @@ class ContactSection extends StatelessWidget {
           icon: Icons.business,
           onPressed: () => _launchUrl(controller.contactInfo['linkedin']!),
           backgroundColor: AppTheme.cardBg,
+          textColor: AppTheme.primary,
         ),
       ],
     )

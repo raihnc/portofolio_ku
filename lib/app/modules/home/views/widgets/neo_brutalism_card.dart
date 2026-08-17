@@ -8,6 +8,7 @@ class NeoBrutalismCard extends StatefulWidget {
   final Color backgroundColor;
   final EdgeInsets? padding;
   final VoidCallback? onTap;
+  final double? borderWidth;
 
   const NeoBrutalismCard({
     super.key,
@@ -15,6 +16,7 @@ class NeoBrutalismCard extends StatefulWidget {
     this.backgroundColor = AppTheme.cardBg,
     this.padding,
     this.onTap,
+    this.borderWidth,
   });
 
   @override
@@ -26,6 +28,8 @@ class _NeoBrutalismCardState extends State<NeoBrutalismCard> {
 
   @override
   Widget build(BuildContext context) {
+    final bw = widget.borderWidth ?? AppValues.borderWidth;
+
     final content = MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -36,7 +40,7 @@ class _NeoBrutalismCardState extends State<NeoBrutalismCard> {
           color: widget.backgroundColor,
           border: Border.all(
             color: AppTheme.border,
-            width: AppValues.borderWidth,
+            width: bw,
           ),
           boxShadow: [
             BoxShadow(

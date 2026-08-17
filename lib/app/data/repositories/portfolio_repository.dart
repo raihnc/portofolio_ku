@@ -73,7 +73,8 @@ class PortfolioRepository {
       TechStackModel(name: 'Github', category: 'Tools'),
       TechStackModel(name: 'Figma', category: 'Tools'),
       TechStackModel(name: 'VS Code', category: 'Tools'),
-      TechStackModel(name: 'Opencode', category: 'Tools'),
+      TechStackModel(name: '9Router', category: 'Tools'),
+      TechStackModel(name: 'Codex', category: 'Tools'),
     ];
   }
 
@@ -82,7 +83,6 @@ class PortfolioRepository {
       'email': 'raihanraihan522@gmail.com',
       'phone': '+62 851 1708 0730',
       'linkedin': 'https://linkedin.com/in/yourprofile',
-      'github': 'https://github.com/yourusername',
     };
   }
 

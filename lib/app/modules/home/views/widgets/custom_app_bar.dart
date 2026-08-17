@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/values/app_values.dart';
 import '../../controllers/home_controller.dart';
@@ -17,7 +18,7 @@ class CustomAppBar extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: AppTheme.cardBg,
+        color: AppTheme.surface,
         border: Border(
           bottom: BorderSide(
             color: AppTheme.border,
@@ -27,7 +28,7 @@ class CustomAppBar extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop
-            ? AppValues.paddingXLarge
+            ? AppValues.paddingXXLarge
             : AppValues.paddingMedium,
         vertical: AppValues.paddingMedium,
       ),
@@ -44,10 +45,11 @@ class CustomAppBar extends StatelessWidget {
       children: [
         Text(
           'PORTOFOLIO',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w800,
+          style: GoogleFonts.spaceMono(
+            fontSize: 14,
+            fontWeight: FontWeight.w700,
             color: AppTheme.primary,
+            letterSpacing: 2,
           ),
         )
             .animate()
@@ -78,10 +80,11 @@ class CustomAppBar extends StatelessWidget {
       children: [
         Text(
           'PORTOFOLIO',
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w800,
+          style: GoogleFonts.spaceMono(
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
             color: AppTheme.primary,
+            letterSpacing: 2,
           ),
         )
             .animate()
@@ -123,6 +126,7 @@ class CustomAppBar extends StatelessWidget {
       text: title,
       onPressed: () => controller.scrollToSection(key),
       backgroundColor: Colors.transparent,
+      textColor: AppTheme.textPrimary,
       hasShadow: false,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     )
